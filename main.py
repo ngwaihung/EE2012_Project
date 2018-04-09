@@ -4,6 +4,11 @@
 # Author    : Ng Wai Hung                 #
 # Co-author : Victor Tay                  #
 # Date      : 09/04/2018                  #
+# IDE       : Enthought Canopy (Windows)  #
+#                                         #
+# Note:                                   #
+# Please use dos2unix to convert file if  #
+# running on Unix-based environment       #
 #                                         #
 # Instructions:                           #
 # 1) Adjust values as necessary under     #
@@ -103,7 +108,6 @@ def main():
     
     # Subplot adjustments
     plt.subplots_adjust(hspace=0.5, wspace=1.0)
-    plt.show()
     
     # Print probabilities of component lasting beyond 5 years for t = 3,4,5
     p_a, err_a = getDurability(5,lambda_a) # t = 3
@@ -112,6 +116,9 @@ def main():
     print "p(t=3) =", p_a
     print "p(t=4) =", p_b
     print "p(t=5) =", p_c
+    
+    # Show plot
+    plt.show()
     
     return
     
