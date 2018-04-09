@@ -1,22 +1,3 @@
-###########################################
-# EE2012 Project Work (FY2017/2018 Sem.2) #
-#                                         #
-# Author    : Ng Wai Hung                 #
-# Co-author : Victor Tay                  #
-# Date      : 09/04/2018                  #
-# IDE       : Enthought Canopy (Windows)  #
-#                                         #
-# Note:                                   #
-# Please use dos2unix to convert file if  #
-# running on Unix-based environment       #
-#                                         #
-# Instructions:                           #
-# 1) Adjust values as necessary under     #
-#    'Independent Variables' block        #
-# 2) Run script to obtain PDF & CDF plot  #
-# 3) Q1(d) output printed in terminal     #
-###########################################
-
 import numpy as np
 import scipy.integrate as integrate
 import matplotlib.pyplot as plt
