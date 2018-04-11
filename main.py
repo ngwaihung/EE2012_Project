@@ -10,23 +10,28 @@ CDF = lambda x,l: 1 - np.exp(l*(-x)) # Derived CDF expression
 invCDF = lambda x,l: -1 * (np.log(1-x)/l) # Derived inverse transform expression
 
 # Fetch N as a command-line argument
+def posInt(value):
+    val = int(value)
+    if val <= 0:
+        raise argparse.ArgumentTypeError("%s is not a valid positive integer" % value)
+    return val
 parser = argparse.ArgumentParser(description='Input parameters')
-parser.add_argument("mVar",type=int,metavar='N',nargs='+',help='Number of random variables to generate')
-parser.add_argument("t1",type=int,metavar='t1',nargs='+',help='T1')
-parser.add_argument("t2",type=int,metavar='t2',nargs='+',help='T2')
-parser.add_argument("t3",type=int,metavar='t3',nargs='+',help='T3')
+parser.add_argument("mVar",type=posInt,metavar='N',nargs='+',help='Number of random variables to generate')
+parser.add_argument("t1",type=posInt,metavar='t1',nargs='+',help='T1')
+parser.add_argument("t2",type=posInt,metavar='t2',nargs='+',help='T2')
+parser.add_argument("t3",type=posInt,metavar='t3',nargs='+',help='T3')
 args = parser.parse_args()
 
 # Independent Variables
-a = args.t1[0] * 1.0 # t = 3
-b = args.t2[0] * 1.0 # t = 4
-c = args.t3[0] * 1.0 # t = 5
+a = args.t1[0] * 1.0
+b = args.t2[0] * 1.0
+c = args.t3[0] * 1.0
 N = args.mVar[0] # Number of random variables to generate
 
 # Dependent Variables
-lambda_a = float(1.0/a) # t = 3
-lambda_b = float(1.0/b) # t = 4
-lambda_c = float(1.0/c) # t = 5
+lambda_a = float(1.0/a)
+lambda_b = float(1.0/b)
+lambda_c = float(1.0/c)
 
 # Get inverse transformation array
 def getRandInv(la):
@@ -99,10 +104,10 @@ def main():
     # Subplot adjustments
     plt.subplots_adjust(hspace=0.5, wspace=1.0)
     
-    # Print probabilities of component lasting beyond 5 years for t = 3,4,5
-    p_a, err_a = getDurability(5,lambda_a) # t = 3
-    p_b, err_b = getDurability(5,lambda_b) # t = 4
-    p_c, err_c = getDurability(5,lambda_c) # t = 5
+    # Print probabilities of component lasting beyond 5 years
+    p_a, err_a = getDurability(5,lambda_a)
+    p_b, err_b = getDurability(5,lambda_b)
+    p_c, err_c = getDurability(5,lambda_c)
     print "p(t=" + str(args.t1[0]) + ") =", p_a
     print "p(t=" + str(args.t2[0]) + ") =", p_b
     print "p(t=" + str(args.t3[0]) + ") =", p_c
