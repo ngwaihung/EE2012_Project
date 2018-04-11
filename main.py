@@ -1,3 +1,4 @@
+import argparse
 import numpy as np
 import scipy.integrate as integrate
 import matplotlib.pyplot as plt
@@ -8,11 +9,16 @@ PDF = lambda x,l: l * np.exp(l*(-x)) # Derived PDF expression
 CDF = lambda x,l: 1 - np.exp(l*(-x)) # Derived CDF expression
 invCDF = lambda x,l: -1 * (np.log(1-x)/l) # Derived inverse transform expression
 
+# Fetch N as a command-line argument
+parser = argparse.ArgumentParser(description='Input parameters')
+parser.add_argument("mVar",type=int,metavar='N',nargs='+',help='Number of random variables to generate')
+args = parser.parse_args()
+
 # Independent Variables
 a = 3.0 # t = 3
 b = 4.0 # t = 4
 c = 5.0 # t = 5
-N = 100 # Number of random variables to generate
+N = args.mVar[0] # Number of random variables to generate
 
 # Dependent Variables
 lambda_a = float(1.0/a) # t = 3
