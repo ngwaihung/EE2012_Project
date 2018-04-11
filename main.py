@@ -12,12 +12,15 @@ invCDF = lambda x,l: -1 * (np.log(1-x)/l) # Derived inverse transform expression
 # Fetch N as a command-line argument
 parser = argparse.ArgumentParser(description='Input parameters')
 parser.add_argument("mVar",type=int,metavar='N',nargs='+',help='Number of random variables to generate')
+parser.add_argument("t1",type=int,metavar='t1',nargs='+',help='T1')
+parser.add_argument("t2",type=int,metavar='t2',nargs='+',help='T2')
+parser.add_argument("t3",type=int,metavar='t3',nargs='+',help='T3')
 args = parser.parse_args()
 
 # Independent Variables
-a = 3.0 # t = 3
-b = 4.0 # t = 4
-c = 5.0 # t = 5
+a = args.t1[0] * 1.0 # t = 3
+b = args.t2[0] * 1.0 # t = 4
+c = args.t3[0] * 1.0 # t = 5
 N = args.mVar[0] # Number of random variables to generate
 
 # Dependent Variables
@@ -40,7 +43,7 @@ def getCDF(mInv,la,lb,lc):
 
 # Get probability component lasts beyond 5 years
 def getDurability(t,l):
-    result = integrate.quad(lambda x: lambda_a * np.exp(l*(-x)), t, np.inf) # Returns a tuple of the integral and absolute error
+    result = integrate.quad(lambda x: l * np.exp(l*(-x)), t, np.inf) # Returns a tuple of the integral and absolute error
     return result
 
 # Plot PDF graph
@@ -57,7 +60,7 @@ def plotPDF(fig,mInv,pdfArr_a,pdfArr_b,pdfArr_c,nullArr):
     line = ax.scatter(mInv,nullArr,s=80,facecolors='none',edgecolors='r')
     line.set_clip_on(False)
     ax.set_title('PDF',fontsize='medium')
-    plt.legend(['t = 3','t = 4','t = 5'], loc='upper right')
+    plt.legend(['t = ' + str(args.t1[0]),'t = ' + str(args.t2[0]),'t = ' + str(args.t3[0])], loc='upper right')
     return
 
 # Plot CDF graph
@@ -74,7 +77,7 @@ def plotCDF(fig,mInv,cdfArr_a,cdfArr_b,cdfArr_c,nullArr):
     line = ax.scatter(mInv,nullArr,s=80,facecolors='none',edgecolors='r')
     line.set_clip_on(False)
     ax.set_title('CDF',fontsize='medium')
-    plt.legend(['t = 3','t = 4','t = 5'], loc='lower right')
+    plt.legend(['t = ' + str(args.t1[0]),'t = ' + str(args.t2[0]),'t = ' + str(args.t3[0])], loc='lower right')
     return
 
 def main():
@@ -100,9 +103,9 @@ def main():
     p_a, err_a = getDurability(5,lambda_a) # t = 3
     p_b, err_b = getDurability(5,lambda_b) # t = 4
     p_c, err_c = getDurability(5,lambda_c) # t = 5
-    print "p(t=3) =", p_a
-    print "p(t=4) =", p_b
-    print "p(t=5) =", p_c
+    print "p(t=" + str(args.t1[0]) + ") =", p_a
+    print "p(t=" + str(args.t2[0]) + ") =", p_b
+    print "p(t=" + str(args.t3[0]) + ") =", p_c
     
     # Show plot
     plt.show()
